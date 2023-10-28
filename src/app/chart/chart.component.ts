@@ -40,34 +40,49 @@ export class ChartComponent implements OnInit {
   }
 
 
+
+
   createChart() {
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
     const totalMedals = this.medalsCount.reduce((a, b) => a + b, 0); // Total des médailles
 
     const annotations: Record<string, any> = {}; // Définissez un type pour les annotations
+    const radius = 900; // Rayon du camembert
+
+    let currentAngle = 11;
 
     for (let i = 0; i < this.countries.length; i++) {
       const label = `label${i + 1}`;
-      const xValue = (this.medalsCount[i] / totalMedals) * 100; // Position en pourcentage
-      const yValue = 50; // Vous pouvez ajuster la valeur y si nécessaire
+      const angle = (Math.PI * 2 * (this.medalsCount[i] / totalMedals));
+
+      // Calculez les coordonnées en utilisant l'angle actuel
+      const xValue = radius * Math.cos(currentAngle + angle / 2);
+      const yValue = radius * Math.sin(currentAngle + angle / 2);
+
+      // Calculez les coordonnées pour le callout au bord du camembert
+      const calloutX = (radius + 30) * Math.cos(currentAngle + angle / 2);
+      const calloutY = (radius + 30) * Math.sin(currentAngle + angle / 2);
 
       annotations[label] = {
         type: 'label',
         xValue: xValue,
         yValue: yValue,
-        xAdjust: 0, // Ajustez si nécessaire
-        yAdjust: 0, // Ajustez si nécessaire
-        backgroundColor: 'rgba(245,245,245)',
-        content: [`In this point of time, ${this.countries[i]}`, 'something happened'],
+        xAdjust: calloutX, // Ajustez pour le callout
+        yAdjust: calloutY, // Ajustez pour le callout
+        content: [`${this.countries[i]}`],
         textAlign: 'start',
         font: {
           size: 18
         },
         callout: {
           display: true,
-          side: 10
-        }
+          side: 0, // Mettez le callout au bord du camembert
+          borderWidth: 2,
+          borderColor: this.getBackgroundColor(i), // Utilisez la couleur du secteur
+        },
       };
+
+      currentAngle += angle;
     }
 
     new Chart(ctx, {
@@ -95,6 +110,23 @@ export class ChartComponent implements OnInit {
       }
     });
   }
+
+  // Fonction pour obtenir la couleur du secteur du camembert
+  getBackgroundColor(index: number) {
+    const dataset = this.medalsCount[index];
+    const backgroundColors = [
+      '#956065', '#B8CBE7', '#89A1DB', '#793D52', '#9780A1', '#956065'
+      // Ajoutez d'autres couleurs si nécessaire
+    ];
+
+    return backgroundColors[index % backgroundColors.length];
+  }
+
+
+
+
+
+
 
 
 
