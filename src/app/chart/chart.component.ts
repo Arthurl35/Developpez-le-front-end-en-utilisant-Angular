@@ -11,6 +11,8 @@ import { Olympic } from 'src/app/core/models/Olympic';
 })
 export class ChartComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null>;
+  public countries: string[] = []; // Tableau des noms des pays
+  public medalsCount: number[] = []; // Tableau des comptages de médailles
 
   constructor(private olympicService: OlympicService) {
     this.olympics$ = this.olympicService.getOlympics();
@@ -19,25 +21,24 @@ export class ChartComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$.subscribe((olympics) => {
       if (olympics) {
-        this.createChart(olympics);
+        // Extraire les données nécessaires du modèle Olympic pour le graphique
+        this.countries = olympics.map((o) => o.country);
+        this.medalsCount = olympics.map((o) => o.participations[0].medalsCount);
+        this.createChart();
       }
     });
   }
 
-  createChart(olympics: Olympic[]) {
+  createChart() {
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-
-    // Extraire les données nécessaires du modèle Olympic pour le graphique
-    const countries = olympics.map((o) => o.country);
-    const medalsCount = olympics.map((o) => o.participations[0].medalsCount);
 
     new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: countries,
+        labels: this.countries,
         datasets: [{
           label: 'Medals Count',
-          data: medalsCount,
+          data: this.medalsCount,
           backgroundColor: [
             '#956065', '#B8CBE7', '#89A1DB', '#793D52', '#9780A1', '#956065'
             // Ajoutez d'autres couleurs si nécessaire
