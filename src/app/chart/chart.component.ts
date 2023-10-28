@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit {
     const totalMedals = this.medalsCount.reduce((a, b) => a + b, 0); // Total des médailles
 
     const annotations: Record<string, any> = {}; // Définissez un type pour les annotations
-    const radius = 900; // Rayon du camembert
+    const radius = 1100; // Rayon du camembert
 
     let currentAngle = 11;
 
@@ -95,8 +95,8 @@ export class ChartComponent implements OnInit {
           backgroundColor: [
             '#956065', '#B8CBE7', '#89A1DB', '#793D52', '#9780A1', '#956065'
             // Ajoutez d'autres couleurs si nécessaire
-          ]
-        }]
+          ],
+        }],
       },
       options: {
         plugins: {
@@ -106,7 +106,10 @@ export class ChartComponent implements OnInit {
           annotation: {
             annotations: annotations // Utilisation de l'objet annotations dynamique
           }
-        }
+        },
+        hover: {
+          mode: 'x', // Désactivez le mode de survol
+        },
       }
     });
   }
