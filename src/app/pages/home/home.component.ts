@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { ChartComponent } from 'src/app/chart/chart.component';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-home',

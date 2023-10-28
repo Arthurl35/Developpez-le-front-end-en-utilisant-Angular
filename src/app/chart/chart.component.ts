@@ -1,11 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { Chart } from 'chart.js/auto';
-
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css']
+  styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
 
