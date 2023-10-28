@@ -1,6 +1,6 @@
 <h2>Medals per Country</h2>
 <div class="card card-jos">{{olympics$}}</div>
-<div class="card card-countries">{{olympics$}}</div>
+<div class="card card-countries">Number of countries {{ (olympics$ | async)?.length }}</div>
 
 
 
