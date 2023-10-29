@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit {
     const totalMedals = this.medalsCount.reduce((a, b) => a + b, 0); // Total des médailles
 
     const annotations: Record<string, any> = {}; // Définissez un type pour les annotations
-    const radius = 1100; // Rayon du camembert
+    const radius = 120; // Rayon du camembert
 
     let currentAngle = 11;
 
@@ -107,9 +107,9 @@ export class ChartComponent implements OnInit {
             annotations: annotations // Utilisation de l'objet annotations dynamique
           }
         },
-        hover: {
-          mode: 'x', // Désactivez le mode de survol
-        },
+        //hover: {
+        //  mode: 'x', // Désactivez le mode de survol
+        //},
       }
     });
   }

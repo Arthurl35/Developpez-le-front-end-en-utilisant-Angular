@@ -1,8 +1,22 @@
-<h2>Medals per Country</h2>
-<div class="card card-jos">Number of JOs {{ numberJOs | async }}</div>
-<div class="card card-countries">Number of countries {{ (olympics$ | async)?.length }}</div>
-
+<div class="container">
+  <div class="container-head">
+    <h2>Medals per Country</h2>
+    <div class="card">
+      <div class="card-jos">
+        <p>Number of JOs <span>{{ numberJOs | async }}</span></p>
+      </div>
+      <div class="card-countries">
+        <p>Number of countries <span>{{ (olympics$ | async)?.length }}</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="container-main">
 <app-chart></app-chart>
+  </div>
+</div>
+
+
+
 
 
 
