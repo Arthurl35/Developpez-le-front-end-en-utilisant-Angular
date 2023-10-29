@@ -29,14 +29,12 @@ h2{
   background-color: #04838F;
   color: #fff;
   border-radius: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .card {
   display: flex;
-}
-.card-jos{
-  margin-right: 15px;
+  gap: 50px;
 }
 .card-jos, .card-countries {
   border: 2px solid #04838F; /* Ajoutez la bordure */
@@ -54,4 +52,8 @@ span {
   font-weight: bold;
   font-size:xx-large;
   color: #333; /* Couleur de texte plus foncée pour le span */
+}
+
+.container-main{
+  align-items: start;
 }
