@@ -12,6 +12,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   declarations: [AppComponent, HomeComponent, NotFoundComponent, ChartComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,NgxChartsModule],
   providers: [],
-  bootstrap: [AppComponent, ChartComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
