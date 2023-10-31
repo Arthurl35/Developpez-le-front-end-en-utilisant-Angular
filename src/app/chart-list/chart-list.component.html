@@ -1,1 +1,7 @@
-<p>chart-list works!</p>
+<div *ngIf="selectedChartData">
+  <h2>Detail of Pie Chart Segment</h2>
+  <p>Country: {{ selectedChartData }}</p>
+  <p>Total Participations: {{ totalParticipations }}</p>
+  <p>Total Medals: {{ totalMedals }}</p>
+  <p>Total Athletes: {{ totalAthletes }}</p>
+</div>
