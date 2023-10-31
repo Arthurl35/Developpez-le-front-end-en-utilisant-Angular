@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OlympicService } from 'src/app/core/services/olympic.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OlympicService } from '../services/olympic.service';
 import { Olympic } from '../core/models/Olympic';
 
 @Component({
@@ -10,17 +10,12 @@ import { Olympic } from '../core/models/Olympic';
 })
 export class ChartListComponent implements OnInit {
   public countryId!: number; // L'ID du pays sélectionné
-
   public numParticipations!: number; // Nombre de participations aux JO
   public totalMedals!: number; // Nombre total de médailles obtenues
   public totalAthletes!: number; // Nombre total d'athlètes présentés aux JO
 
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private olympicService: Olympic
-  ) {}
+  constructor(private olympicService: OlympicService, private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     // Récupérer l'ID du pays à partir des paramètres de l'URL
@@ -29,7 +24,7 @@ export class ChartListComponent implements OnInit {
     });
 
     // Utiliser l'ID pour récupérer les informations
-    this.olympicService.getCountryInfo(this.countryId).subscribe((info) => {
+    this.olympicService.getCountryData(this.countryId).subscribe((info) => {
       if (info) {
         this.numParticipations = info.numParticipations;
         this.totalMedals = info.totalMedals;

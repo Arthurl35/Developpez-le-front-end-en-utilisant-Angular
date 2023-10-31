@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators'; // Assurez-vous que 'map' provienne de 'rxjs/operators'
 import { Olympic } from '../models/Olympic';
-
+import { CountryData } from './../models/CountryData';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -49,4 +50,40 @@ export class OlympicService {
       })
     );
   }
+
+  getCountryData(countryId: number): Observable<CountryData> {
+    return this.olympics$.pipe(
+      map((olympics: Olympic[] | null) => {
+        if (olympics) {
+          const country = olympics.find((o) => o.id == countryId);
+
+          if (country) {
+            const numParticipations = country.participations.length;
+            const totalMedals = country.participations.reduce(
+              (sum, participation) => sum + participation.medalsCount,
+              0
+            );
+            const totalAthletes = country.participations.reduce(
+              (sum, participation) => sum + participation.athleteCount,
+              0
+            );
+
+            return {
+              id: country.id,
+              numParticipations,
+              totalMedals,
+              totalAthletes,
+            };
+          }
+        }
+        return {
+          id: 0,
+          numParticipations: 0,
+          totalMedals: 0,
+          totalAthletes: 0,
+        };
+      })
+    );
+  }
 }
+
