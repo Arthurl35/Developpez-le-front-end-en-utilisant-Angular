@@ -70,6 +70,7 @@ export class OlympicService {
 
             return {
               id: country.id,
+              name: country.country,
               numParticipations,
               totalMedals,
               totalAthletes,
@@ -78,6 +79,7 @@ export class OlympicService {
         }
         return {
           id: 0,
+          name: '',
           numParticipations: 0,
           totalMedals: 0,
           totalAthletes: 0,

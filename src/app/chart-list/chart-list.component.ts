@@ -10,6 +10,7 @@ import { Olympic } from '../core/models/Olympic';
 })
 export class ChartListComponent implements OnInit {
   public countryId!: number; // L'ID du pays sélectionné
+  public countryName!: string;
   public numParticipations!: number; // Nombre de participations aux JO
   public totalMedals!: number; // Nombre total de médailles obtenues
   public totalAthletes!: number; // Nombre total d'athlètes présentés aux JO
@@ -26,6 +27,7 @@ export class ChartListComponent implements OnInit {
     // Utiliser l'ID pour récupérer les informations
     this.olympicService.getCountryData(this.countryId).subscribe((info) => {
       if (info) {
+        this.countryName = info.name;
         this.numParticipations = info.numParticipations;
         this.totalMedals = info.totalMedals;
         this.totalAthletes = info.totalAthletes;
