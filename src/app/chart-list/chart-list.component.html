@@ -1,7 +1,14 @@
 <div *ngIf="selectedChartData">
-  <h2>Detail of Pie Chart Segment</h2>
-  <p>Country: {{ selectedChartData }}</p>
-  <p>Total Participations: {{ totalParticipations }}</p>
-  <p>Total Medals: {{ totalMedals }}</p>
-  <p>Total Athletes: {{ totalAthletes }}</p>
+  <h2>Informations sur le pays : {{ selectedChartData.country }}</h2>
+  <p>Nombre de participations aux JO : {{ totalParticipations }}</p>
+  <p>Nombre total de médailles obtenues : {{ totalMedals }}</p>
+  <p>Nombre total d'athlètes présentés aux JO : {{ totalAthletes }}</p>
+</div>
+<div *ngIf="!selectedChartData">
+  <p>Sélectionnez un pays à partir du graphique pour afficher les détails.</p>
+</div>
+
+
+<div class="center">
+  <a routerLink="">Go back</a>
 </div>
