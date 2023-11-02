@@ -6,54 +6,47 @@
   flex-direction: column;
   padding: 20px; /* Ajoutez le padding souhaité */
   font-size: x-large;
+  .container-head {
+    flex: 30%; /* 30% de la hauteur */
+    padding-top: 50px; /* Ajoutez le padding pour les cartes */
+    margin: 0 auto; /* Définit la marge automatiquement à gauche et à droite pour centrer le h2 */
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+    padding: 11px;
+    background: #04838F;
+    color: #fff;
+    border-radius: 5px;
+    display: inline-block; /* Pour que le h2 prenne la largeur du texte */
+    margin: 15px;
+  }
+  .container-main {
+    flex: 70%; /* 70% de la hauteur */
+    display: flex;
+    justify-content: center;
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+  .card-jos,
+  .card-countries {
+    border: 2px solid #04838F; /* Ajoutez la bordure */
+    border-radius: 5px;
+    padding: 11px; /* Ajoutez le padding pour chaque carte */
+  }
+  p {
+    color: #333333ab; /* Couleur de texte noir clair */
+  }
+  span {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #333; /* Couleur de texte plus foncée pour le span */
+  }
 }
 
-.container-head {
-  flex: 30%; /* 30% de la hauteur */
-  padding-top: 50px; /* Ajoutez le padding pour les cartes */
-  margin: 0 auto; /* Définit la marge automatiquement à gauche et à droite pour centrer le h2 */
-  text-align: center;
-}
-
-.container h2 {
-  text-align: center;
-  padding: 11px;
-  background: #04838F;
-  color: #fff;
-  border-radius: 5px;
-  display: inline-block; /* Pour que le h2 prenne la largeur du texte */
-  margin: 15px;
-}
-
-
-.container-main {
-  flex: 70%; /* 70% de la hauteur */
-  display: flex;
-  justify-content: center;
-}
-
-.card {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  flex-wrap: wrap;
-}
-
-.card-jos,
-.card-countries {
-  border: 2px solid #04838F; /* Ajoutez la bordure */
-  border-radius: 5px;
-  padding: 11px; /* Ajoutez le padding pour chaque carte */
-}
-
-p {
-  color: #333333ab; /* Couleur de texte noir clair */
-}
-
-span {
-  display: block;
-  text-align: center;
-  font-weight: bold;
-  font-size: xx-large;
-  color: #333; /* Couleur de texte plus foncée pour le span */
-}
