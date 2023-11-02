@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators'; // Assurez-vous que 'map' provienne de 'rxjs/operators'
+import { catchError, tap, map } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 import { CountryData } from './../models/CountryData';
 import { Observable } from 'rxjs';

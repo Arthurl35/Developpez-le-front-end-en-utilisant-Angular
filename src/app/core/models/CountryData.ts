@@ -9,6 +9,6 @@ export class CountryData {
 
 export interface ChartData {
   year: number;
-  medalsCount: number; // Renommez la propriété de 'medals' à 'medalsCount'
+  medalsCount: number;
   athleteCount: number;
 }
