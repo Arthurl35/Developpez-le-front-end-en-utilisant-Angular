@@ -55,7 +55,7 @@ export class OlympicService {
     return this.olympics$.pipe(
       map((olympics: Olympic[] | null) => {
         if (olympics) {
-          const country = olympics.find((o) => o.id == countryId);
+          const country = olympics.find((o) => o.id === countryId);
 
           if (country) {
             const numParticipations = country.participations.length;
@@ -68,12 +68,22 @@ export class OlympicService {
               0
             );
 
+            // Créez un tableau d'objets pour les années, médailles et athlètes
+            const chartData = country.participations.map(participation => {
+              return {
+                year: participation.year,
+                medalsCount: participation.medalsCount,
+                athleteCount: participation.athleteCount
+              };
+            });
+
             return {
               id: country.id,
               name: country.country,
               numParticipations,
               totalMedals,
               totalAthletes,
+              chartData: chartData // Ajoutez le tableau de données pour le graphique
             };
           }
         }
@@ -83,9 +93,11 @@ export class OlympicService {
           numParticipations: 0,
           totalMedals: 0,
           totalAthletes: 0,
+          chartData: [] // Par exemple, un tableau vide de données pour le graphique
         };
       })
     );
   }
+
 }
 

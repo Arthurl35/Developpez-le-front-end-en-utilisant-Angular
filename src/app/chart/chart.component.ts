@@ -22,6 +22,8 @@ export class ChartComponent implements OnInit {
       if (olympics) {
         // Extraire les données nécessaires du modèle Olympic pour le graphique
         this.chartData = this.extractChartData(olympics);
+        console.log(this.chartData);
+
       }
     });
   }
