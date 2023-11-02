@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { ChartListComponent } from './chart-list/chart-list.component';
+import { DetailComponent } from './pages/detail/detail.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
@@ -10,8 +10,8 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'chart-list/:id',
-    component: ChartListComponent ,
+    path: 'detail/:id',
+    component: DetailComponent ,
   },
   {
     path: '**', // wildcard

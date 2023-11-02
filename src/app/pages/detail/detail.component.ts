@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-chart-list',
-  templateUrl: './chart-list.component.html',
-  styleUrls: ['./chart-list.component.scss'],
+  selector: 'app-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss'],
 })
-export class ChartListComponent implements OnInit {
+export class DetailComponent implements OnInit {
   public countryId!: number; // L'ID du pays sélectionné
   public countryName!: string;
   public numParticipations!: number; // Nombre de participations aux JO

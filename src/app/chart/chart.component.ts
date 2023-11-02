@@ -44,7 +44,7 @@ export class ChartComponent implements OnInit {
 
     if (selectedData) {
       const selectedId = selectedData.id;
-      this.router.navigate(['/chart-list', selectedId]); // "event.id" est l'ID de la part sélectionnée
+      this.router.navigate(['/detail', selectedId]); // "event.id" est l'ID de la part sélectionnée
     }
   }
 
