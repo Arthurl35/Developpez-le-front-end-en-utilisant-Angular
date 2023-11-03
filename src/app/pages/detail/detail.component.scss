@@ -1,0 +1,21 @@
+.custom-tooltip {
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  .tooltip-header {
+    font-weight: bold;
+  }
+  .tooltip-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+  }
+  .tooltip-content pre {
+    font-size: large;
+    margin-left: 5px;
+  }
+}
+
+
