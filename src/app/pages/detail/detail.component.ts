@@ -8,26 +8,24 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  public countryId!: number; // L'ID du pays sélectionné
+  public countryId!: number;
   public countryName!: string;
-  public numParticipations!: number; // Nombre de participations aux JO
-  public totalMedals!: number; // Nombre total de médailles obtenues
-  public totalAthletes!: number; // Nombre total d'athlètes présentés aux JO
+  public numParticipations!: number;
+  public totalMedals!: number;
+  public totalAthletes!: number;
 
-  public chartData!: any[]; // Tableau des données pour le graphique
+  public chartData!: any[];
 
-  constructor(
-    private olympicService: OlympicService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private olympicService: OlympicService,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Récupérer l'ID du pays à partir des paramètres de l'URL
     this.route.params.subscribe((params) => {
-      this.countryId = +params['id']; // Convertir en nombre
+      this.countryId = +params['id'];
     });
 
-    // Utiliser l'ID pour récupérer les informations
+    /** The code take all country including the number of participations, total medals, total athletes, and chart data
+     * for that country to make an chartData objet for the line chart.
+     */
     this.olympicService.getCountryData(this.countryId).subscribe((info) => {
       if (info) {
         this.countryName = info.name;
@@ -35,20 +33,18 @@ export class DetailComponent implements OnInit {
         this.totalMedals = info.totalMedals;
         this.totalAthletes = info.totalAthletes;
 
-        // Réorganisez vos données en un format compatible avec ngx-charts
-        if(info.name){
+        if (info.name) {
           this.chartData = [
             {
               name: info.name,
-              series: info.chartData.map(participation => ({
+              series: info.chartData.map((participation) => ({
                 name: participation.year.toString(),
-                value: participation.medalsCount
-              }))
-            }
+                value: participation.medalsCount,
+              })),
+            },
           ];
         }
       }
     });
   }
-  
 }

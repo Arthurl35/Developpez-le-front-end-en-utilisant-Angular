@@ -15,42 +15,56 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
+/**
+ * The function loadInitialData make an HTTP GET request to retrieve Olympic data.
+ * @returns an observable of type `Olympic[]`.
+ */
   loadInitialData() {
-    return this.http.get<any>(this.olympicUrl).pipe(
+    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
-        // TODO: improve error handling
         console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next(null);
         return caught;
       })
     );
   }
 
+/**
+ * @returns an observable of the Olympics data.
+ */
   getOlympics() {
     return this.olympics$.asObservable();
   }
 
+/**
+ * @returns an Observable that emits the number of unique years in
+ * the `participations` array of the `olympics` object.
+ */
   getNumberJo() {
     return this.olympics$.pipe(
       map((olympics: Olympic[] | null) => {
         if (olympics) {
-          // Utilisez un ensemble pour éviter les années en double
           const uniqueYears = new Set<number>();
           olympics.forEach((o) => {
             o.participations.forEach((p) => {
               uniqueYears.add(p.year);
             });
           });
-          // Retourne la taille de l'ensemble (nombre d'années uniques)
           return uniqueYears.size;
         }
-        return 0; // Ou une autre valeur par défaut si les données ne sont pas disponibles
+        return 0;
       })
     );
   }
 
+  /**
+   * The function getCountryData takes a country ID as input that emits the country data,
+   *  including the number of participations, total medals, total athletes, and chart data for that country.
+   * @param {number} countryId - The countryId parameter is a number that represents the unique
+   * identifier of a country.
+   * @returns an Observable of type CountryData.
+   */
   getCountryData(countryId: number): Observable<CountryData> {
     return this.olympics$.pipe(
       map((olympics: Olympic[] | null) => {
@@ -68,7 +82,6 @@ export class OlympicService {
               0
             );
 
-            // Créez un tableau d'objets pour les années, médailles et athlètes
             const chartData = country.participations.map(participation => {
               return {
                 year: participation.year,
@@ -83,7 +96,7 @@ export class OlympicService {
               numParticipations,
               totalMedals,
               totalAthletes,
-              chartData: chartData // Ajoutez le tableau de données pour le graphique
+              chartData: chartData 
             };
           }
         }
@@ -93,11 +106,10 @@ export class OlympicService {
           numParticipations: 0,
           totalMedals: 0,
           totalAthletes: 0,
-          chartData: [] // Par exemple, un tableau vide de données pour le graphique
+          chartData: []
         };
       })
     );
   }
-
 }
 

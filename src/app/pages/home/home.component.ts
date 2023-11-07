@@ -9,7 +9,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<Olympic[] | null> = of(null);
+  public olympics$!: Observable<Olympic[] | null>;
   public numberJOs!: Observable<number>;
 
   constructor(private olympicService: OlympicService) {}
