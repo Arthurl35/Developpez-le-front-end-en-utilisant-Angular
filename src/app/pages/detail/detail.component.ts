@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -15,11 +14,10 @@ export class DetailComponent implements OnInit {
   public totalMedals!: number; // Nombre total de médailles obtenues
   public totalAthletes!: number; // Nombre total d'athlètes présentés aux JO
 
-  public chartData: any[] = []; // Tableau des données pour le graphique
+  public chartData!: any[]; // Tableau des données pour le graphique
 
   constructor(
     private olympicService: OlympicService,
-    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -38,23 +36,19 @@ export class DetailComponent implements OnInit {
         this.totalAthletes = info.totalAthletes;
 
         // Réorganisez vos données en un format compatible avec ngx-charts
-        this.chartData = [
-          {
-            name: info.name,
-            series: info.chartData.map(participation => ({
-              name: participation.year.toString(),
-              value: participation.medalsCount
-            }))
-          }
-        ];
-
-
-
-        console.log(this.chartData);
-
-
-
+        if(info.name){
+          this.chartData = [
+            {
+              name: info.name,
+              series: info.chartData.map(participation => ({
+                name: participation.year.toString(),
+                value: participation.medalsCount
+              }))
+            }
+          ];
+        }
       }
     });
   }
+  
 }

@@ -3,56 +3,80 @@
   padding: 0;
   margin: 0;
 }
-
 .container {
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px; /* Ajoutez le padding souhaité */
+  padding: 20px;
   font-size: x-large;
   .container-head {
-    flex: 30%; /* 30% de la hauteur */
-    padding-top: 50px; /* Ajoutez le padding pour les cartes */
-    margin: 0 auto; /* Définit la marge automatiquement à gauche et à droite pour centrer le h2 */
+    flex: 30%;
+    padding-top: 50px;
+    margin: 0 auto;
     text-align: center;
-  }
-  h2 {
-    text-align: center;
-    padding: 11px;
-    background: #04838F;
-    color: #fff;
-    border-radius: 5px;
-    display: inline-block; /* Pour que le h2 prenne la largeur du texte */
-    margin: 15px;
-  }
-  .container-main {
-    flex: 70%; /* 70% de la hauteur */
-    display: flex;
-    justify-content: center;
+    h2 {
+      text-align: center;
+      padding: 11px;
+      background: #04838F;
+      color: #fff;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 15px;
+    }
   }
   .card {
     display: flex;
     justify-content: center;
     gap: 50px;
     flex-wrap: wrap;
+    p {
+      color: #333333ab;
+    }
+    span {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      font-size: xx-large;
+      color: #333;
+    }
+    .card-jos,
+    .card-countries {
+      border: 2px solid #04838F;
+      border-radius: 5px;
+      padding: 11px;
+    }
   }
-  .card-jos,
-  .card-countries {
-    border: 2px solid #04838F; /* Ajoutez la bordure */
-    border-radius: 5px;
-    padding: 11px; /* Ajoutez le padding pour chaque carte */
-  }
-  p {
-    color: #333333ab; /* Couleur de texte noir clair */
-  }
-  span {
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    font-size: xx-large;
-    color: #333; /* Couleur de texte plus foncée pour le span */
+  .container-main {
+    flex: 70%;
+    margin: 0 auto 0;
+    .chart{
+      width: 800px;
+      height: 500px;
+    }
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .container{
+    font-size: large;
+  }
+  .container .container-main .chart{
+    width: 700px;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container{
+    font-size: medium;
+  }
+  .container .container-main .chart{
+    margin-top: 15px;
+    width: 350px;
+    height: 150px;
+  }
+}
+
+
 
