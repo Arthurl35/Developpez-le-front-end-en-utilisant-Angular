@@ -11,13 +11,13 @@ import { Observable } from 'rxjs';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<Olympic[] | null>(null);
+  private olympics$ = new BehaviorSubject<Olympic[] | null>([]);
 
   constructor(private http: HttpClient) {}
 
 /**
  * The function loadInitialData make an HTTP GET request to retrieve Olympic data.
- * @returns an observable of type `Olympic[]`.
+ * @returns an observable of type Olympic[].
  */
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
@@ -39,7 +39,7 @@ export class OlympicService {
 
 /**
  * @returns an Observable that emits the number of unique years in
- * the `participations` array of the `olympics` object.
+ * the participations array of the olympics object.
  */
   getNumberJo() {
     return this.olympics$.pipe(
@@ -63,7 +63,7 @@ export class OlympicService {
    *  including the number of participations, total medals, total athletes, and chart data for that country.
    * @param {number} countryId - The countryId parameter is a number that represents the unique
    * identifier of a country.
-   * @returns an Observable of type CountryData.
+   * @returns an observable of type CountryData.
    */
   getCountryData(countryId: number): Observable<CountryData> {
     return this.olympics$.pipe(

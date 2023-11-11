@@ -1,5 +1,7 @@
 # OlympicGames
 
+OlympicGames is a new interactive web application to prepare for the next olympic games.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.x.
 
 ## Technologies

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { ActivatedRoute } from '@angular/router';
+import { CountryData } from 'src/app/core/models/CountryData';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
@@ -15,18 +17,21 @@ export class DetailComponent implements OnInit {
   public totalAthletes!: number;
 
   public chartData!: any[];
+  public countryData$!: Observable<CountryData>;
 
-  constructor(private olympicService: OlympicService,private route: ActivatedRoute) {}
+  constructor(
+    private olympicService: OlympicService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.countryId = +params['id'];
     });
 
-    /** The code take all country including the number of participations, total medals, total athletes, and chart data
-     * for that country to make an chartData objet for the line chart.
-     */
-    this.olympicService.getCountryData(this.countryId).subscribe((info) => {
+    this.countryData$ = this.olympicService.getCountryData(this.countryId);
+
+    this.countryData$.subscribe((info) => {
       if (info) {
         this.countryName = info.name;
         this.numParticipations = info.numParticipations;
@@ -43,6 +48,9 @@ export class DetailComponent implements OnInit {
               })),
             },
           ];
+        } else {
+          // Throw an error if the country id is not available
+          throw new Error('Country not available');
         }
       }
     });

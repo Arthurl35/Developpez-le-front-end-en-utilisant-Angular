@@ -10,12 +10,17 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   public olympics$!: Observable<Olympic[] | null>;
-  public numberJOs!: Observable<number>;
+  public numberJOs$!: Observable<number>;
 
   constructor(private olympicService: OlympicService) {}
 
+/**
+ * The ngOnInit function initializes the Olympics$ observable by calling the getOlympics function from
+ * the OlympicService, and assigns the result to the Olympics$ variable. It also initializes the
+ * numberJOs variable by calling the getNumberJo function from the OlympicService.
+ */
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.numberJOs = this.olympicService.getNumberJo();
+    this.numberJOs$ = this.olympicService.getNumberJo();
   }
 }
