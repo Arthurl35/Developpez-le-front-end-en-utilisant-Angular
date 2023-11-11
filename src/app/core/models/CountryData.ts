@@ -4,7 +4,7 @@ export class CountryData {
   numParticipations!: number;
   totalMedals!: number;
   totalAthletes!: number;
-  chartData!: ChartData[]; // Tableau d'années
+  chartData!: ChartData[];
 }
 
 export interface ChartData {

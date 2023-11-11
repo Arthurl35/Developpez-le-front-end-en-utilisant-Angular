@@ -11,11 +11,27 @@
     align-items: center;
     justify-content: space-between;
     padding: 5px;
-  }
-  .tooltip-content pre {
-    font-size: large;
-    margin-left: 5px;
+    pre {
+      font-size: large;
+      margin-left: 5px;
+    }
   }
 }
+.button-back{
+  a{
+    text-decoration: none;
+    color: #fff;
+    background-color: #04838F;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 15px;
+    &:hover{
+      background-color: #01646dce;
+    }
+  }
+}
+
+
+
 
 
