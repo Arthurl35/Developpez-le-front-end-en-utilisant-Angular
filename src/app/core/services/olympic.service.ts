@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<Olympic[] | null>([]);
+  private olympics$ = new BehaviorSubject<Olympic[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -19,12 +19,13 @@ export class OlympicService {
  * The function loadInitialData make an HTTP GET request to retrieve Olympic data.
  * @returns an observable of type Olympic[].
  */
-  loadInitialData(): Observable<Olympic[] | null> {
+  loadInitialData(): Observable<Olympic[]> {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         console.error(error);
-        this.olympics$.next(null);
+        // no data keep
+        this.olympics$.next([]);
         return caught;
       })
     );
@@ -33,7 +34,7 @@ export class OlympicService {
 /**
  * @returns an observable of the Olympics data.
  */
-  getOlympics(): Observable<Olympic[] | null> {
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
@@ -43,7 +44,7 @@ export class OlympicService {
  */
   getNumberJo(): Observable<number> {
     return this.olympics$.pipe(
-      map((olympics: Olympic[] | null) => {
+      map((olympics: Olympic[]) => {
         if (olympics) {
           const uniqueYears = new Set<number>();
           olympics.forEach((o) => {
@@ -67,7 +68,7 @@ export class OlympicService {
    */
   getCountryData(countryId: number): Observable<CountryData> {
     return this.olympics$.pipe(
-      map((olympics: Olympic[] | null) => {
+      map((olympics: Olympic[]) => {
         if (olympics) {
           const country = olympics.find((o) => o.id === countryId);
 
