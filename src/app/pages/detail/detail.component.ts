@@ -38,20 +38,15 @@ export class DetailComponent implements OnInit {
         this.totalMedals = info.totalMedals;
         this.totalAthletes = info.totalAthletes;
 
-        if (info.name) {
-          this.chartData = [
-            {
-              name: info.name,
-              series: info.chartData.map((participation) => ({
-                name: participation.year.toString(),
-                value: participation.medalsCount,
-              })),
-            },
-          ];
-        } else {
-          // Throw an error if the country id is not available
-          throw new Error('Country not available');
-        }
+        this.chartData = [
+          {
+            name: info.name,
+            series: info.chartData.map((participation) => ({
+              name: participation.year.toString(),
+              value: participation.medalsCount,
+            })),
+          },
+        ];
       }
     });
   }

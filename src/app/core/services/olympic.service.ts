@@ -19,7 +19,7 @@ export class OlympicService {
  * The function loadInitialData make an HTTP GET request to retrieve Olympic data.
  * @returns an observable of type Olympic[].
  */
-  loadInitialData() {
+  loadInitialData(): Observable<Olympic[] | null> {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
@@ -33,7 +33,7 @@ export class OlympicService {
 /**
  * @returns an observable of the Olympics data.
  */
-  getOlympics() {
+  getOlympics(): Observable<Olympic[] | null> {
     return this.olympics$.asObservable();
   }
 
@@ -41,7 +41,7 @@ export class OlympicService {
  * @returns an Observable that emits the number of unique years in
  * the participations array of the olympics object.
  */
-  getNumberJo() {
+  getNumberJo(): Observable<number> {
     return this.olympics$.pipe(
       map((olympics: Olympic[] | null) => {
         if (olympics) {
