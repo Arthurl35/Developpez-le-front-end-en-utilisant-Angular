@@ -24,7 +24,7 @@ export class OlympicService {
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         console.error(error);
-        // no data keep
+        // return empty array
         this.olympics$.next([]);
         return caught;
       })
