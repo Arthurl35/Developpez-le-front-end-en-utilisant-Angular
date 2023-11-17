@@ -9,10 +9,11 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
+
 export class HomeComponent implements OnInit, OnDestroy {
-  public olympics$!: Observable<Olympic[] | null>;
-  public numberJOs$!: Observable<number | null>;
-  public homeCustomContent!: CustomContentItem[];
+  public olympics$!: Observable<Olympic[]>;
+  public numberJOs$!: Observable<number>;
+  public homeCustomContent: CustomContentItem[] = [];
 
   private olympicsSubscription!: Subscription;
   private numberJOsSubscription!: Subscription;
@@ -23,22 +24,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$ = this.olympicService.getOlympics();
     this.numberJOs$ = this.olympicService.getNumberJo();
 
-    /* The code block you provided is subscribing to two observables (numberJOs$ and olympics$) and
-    updating the homeCustomContent array based on the values received from these observables. */
-    this.numberJOsSubscription = this.numberJOs$.subscribe((numberJOs) => {
-      if (numberJOs !== null) {
-        this.numberJOsSubscription?.unsubscribe();
+    this.numberJOsSubscription = this.numberJOs$.subscribe((count: number) => {
+      if (count !== null && count > 0) {
+        this.homeCustomContent.push({ label: 'Number of JOs', value: count });
+      }
+    });
 
-        this.olympicsSubscription = this.olympics$.subscribe((olympics) => {
-          if (olympics !== null) {
-            this.olympicsSubscription?.unsubscribe();
-
-            this.homeCustomContent = [
-              { label: 'Number of JOs', value: numberJOs },
-              { label: 'Number of countries', value: olympics.length },
-            ];
-          }
-        });
+    this.olympicsSubscription = this.olympics$.subscribe((data: Olympic[]) => {
+      if (data && data.length > 0) {
+        this.homeCustomContent.push({ label: 'Number of countries', value: data.length });
       }
     });
   }
@@ -48,3 +42,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.numberJOsSubscription.unsubscribe();
   }
 }
+
