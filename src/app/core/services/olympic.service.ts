@@ -34,7 +34,7 @@ export class OlympicService {
 /**
  * @returns an observable of the Olympics data.
  */
-  getOlympics(): Observable<Olympic[]> {
+  getOlympics(): Observable<Olympic[] > {
     return this.olympics$.asObservable();
   }
 

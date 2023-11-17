@@ -18,7 +18,7 @@ export class DetailComponent implements OnInit {
   public totalAthletes!: number;
   public lineChartData!: LineChartData[];
   public countryData$!: Observable<CountryData>;
-  public detailCustomContent: CustomContentItem[] = [];
+  public detailCustomContent!: CustomContentItem[];
 
   private countryDataSubscription!: Subscription;
   

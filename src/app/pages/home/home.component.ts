@@ -12,7 +12,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 export class HomeComponent implements OnInit, OnDestroy {
   public olympics$!: Observable<Olympic[] | null>;
   public numberJOs$!: Observable<number | null>;
-  public homeCustomContent: CustomContentItem[] = [];
+  public homeCustomContent!: CustomContentItem[];
 
   private olympicsSubscription!: Subscription;
   private numberJOsSubscription!: Subscription;

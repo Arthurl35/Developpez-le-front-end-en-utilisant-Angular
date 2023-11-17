@@ -32,12 +32,16 @@ export class ChartComponent implements OnInit {
       }
     });
   }
+
+/**
+ * The ngOnDestroy function checks if there is an active subscription and unsubscribes from it if it
+ * exists.
+ */
   ngOnDestroy(): void {
     if (this.olympicsSubscription) {
       this.olympicsSubscription.unsubscribe();
     }
   }
-
 
 /**
  * The function extractChartData takes an array of Olympic objects and returns an array of
@@ -60,7 +64,7 @@ export class ChartComponent implements OnInit {
   }
 
 /**
- * The function `onPieChartSelect` navigates to a detail page based on the selected data from a pie
+ * The function onPieChartSelect navigates to a detail page based on the selected data from a pie
  * chart.
  * @param event - An object containing the following properties:
  */
