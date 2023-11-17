@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {CountryData, LineChartData } from 'src/app/core/models/ChartData';
 import { Observable, Subscription } from 'rxjs';
 import { CustomContentItem } from 'src/app/core/models/CustomContentItem';
@@ -24,7 +24,8 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private olympicService: OlympicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +36,13 @@ export class DetailComponent implements OnInit {
     this.countryData$ = this.olympicService.getCountryData(this.countryId);
 
     this.countryDataSubscription = this.countryData$.subscribe((info) => {
-      if (info) {
+     
+      if (!info.name) {
+        // Si les données sont vides ou non valides, redirige vers NotFoundComponent
+        this.router.navigate(['/not-found']);
+        return;
+      }
+
         this.countryName = info.name;
         this.numParticipations = info.numParticipations;
         this.totalMedals = info.totalMedals;
@@ -51,14 +58,14 @@ export class DetailComponent implements OnInit {
           },
         ];
 
-        // Construire detailCustomContent après avoir reçu les données
+        
         this.detailCustomContent = [
           { label: 'Number of entries', value: this.numParticipations },
           { label: 'Total number medals', value: this.totalMedals },
           { label: 'Total number of athletes', value: this.totalAthletes },
         ];
       }
-    });
+    );
   }
 
   ngOnDestroy(): void {

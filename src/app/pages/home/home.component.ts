@@ -23,13 +23,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$ = this.olympicService.getOlympics();
     this.numberJOs$ = this.olympicService.getNumberJo();
 
+    /* The code block you provided is subscribing to two observables (numberJOs$ and olympics$) and
+    updating the homeCustomContent array based on the values received from these observables. */
     this.numberJOsSubscription = this.numberJOs$.subscribe((numberJOs) => {
       if (numberJOs !== null) {
-        this.numberJOsSubscription?.unsubscribe(); // Désabonnement après récupération de la valeur
+        this.numberJOsSubscription?.unsubscribe();
 
         this.olympicsSubscription = this.olympics$.subscribe((olympics) => {
           if (olympics !== null) {
-            this.olympicsSubscription?.unsubscribe(); // Désabonnement après récupération de la valeur
+            this.olympicsSubscription?.unsubscribe();
 
             this.homeCustomContent = [
               { label: 'Number of JOs', value: numberJOs },
