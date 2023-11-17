@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription  } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
 import { PieChartData } from '../core/models/ChartData';
@@ -11,8 +11,11 @@ import { PieChartData } from '../core/models/ChartData';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  public olympics$: Observable<Olympic[] | null>;
+  public olympics$: Observable<Olympic[]>;
   public pieChartData!: PieChartData[];
+
+  private olympicsSubscription!: Subscription;
+
 
   constructor(private olympicService: OlympicService, private router: Router) {
     this.olympics$ = this.olympicService.getOlympics();
@@ -23,11 +26,16 @@ export class ChartComponent implements OnInit {
  * emitted olympics data.
  */
   ngOnInit(): void {
-    this.olympics$.subscribe((olympics) => {
+    this.olympicsSubscription = this.olympics$.subscribe((olympics) => {
       if (olympics) {
         this.pieChartData = this.extractChartData(olympics);
       }
     });
+  }
+  ngOnDestroy(): void {
+    if (this.olympicsSubscription) {
+      this.olympicsSubscription.unsubscribe();
+    }
   }
 
 

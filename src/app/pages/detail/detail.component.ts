@@ -21,6 +21,7 @@ export class DetailComponent implements OnInit {
   public detailCustomContent: CustomContentItem[] = [];
 
   private countryDataSubscription!: Subscription;
+  
 
   constructor(
     private olympicService: OlympicService,
@@ -37,12 +38,9 @@ export class DetailComponent implements OnInit {
 
     this.countryDataSubscription = this.countryData$.subscribe((info) => {
      
-      if (!info.name) {
-        // Si les données sont vides ou non valides, redirige vers NotFoundComponent
+      if (!info || !info.name) {
         this.router.navigate(['/not-found']);
-        return;
       }
-
         this.countryName = info.name;
         this.numParticipations = info.numParticipations;
         this.totalMedals = info.totalMedals;
