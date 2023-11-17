@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { ActivatedRoute } from '@angular/router';
-import { CountryData } from 'src/app/core/models/CountryData';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import {CountryData, LineChartData } from 'src/app/core/models/ChartData';
+import { Observable, Subscription } from 'rxjs';
+import { CustomContentItem } from 'src/app/core/models/CustomContentItem';
 
 @Component({
   selector: 'app-detail',
@@ -15,13 +16,17 @@ export class DetailComponent implements OnInit {
   public numParticipations!: number;
   public totalMedals!: number;
   public totalAthletes!: number;
-
-  public chartData!: any[];
+  public lineChartData!: LineChartData[];
   public countryData$!: Observable<CountryData>;
+  public detailCustomContent!: CustomContentItem[];
+
+  private countryDataSubscription!: Subscription;
+  
 
   constructor(
     private olympicService: OlympicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,28 +36,39 @@ export class DetailComponent implements OnInit {
 
     this.countryData$ = this.olympicService.getCountryData(this.countryId);
 
-    this.countryData$.subscribe((info) => {
-      if (info) {
+    this.countryDataSubscription = this.countryData$.subscribe((info) => {
+     
+      if (!info || !info.name) {
+        this.router.navigate(['/not-found']);
+      }
         this.countryName = info.name;
         this.numParticipations = info.numParticipations;
         this.totalMedals = info.totalMedals;
         this.totalAthletes = info.totalAthletes;
 
-        if (info.name) {
-          this.chartData = [
-            {
-              name: info.name,
-              series: info.chartData.map((participation) => ({
-                name: participation.year.toString(),
-                value: participation.medalsCount,
-              })),
-            },
-          ];
-        } else {
-          // Throw an error if the country id is not available
-          throw new Error('Country not available');
-        }
+        this.lineChartData = [
+          {
+            name: info.name,
+            series: info.chartData.map((participation) => ({
+              name: participation.year.toString(),
+              value: participation.medalsCount,
+            })),
+          },
+        ];
+
+        
+        this.detailCustomContent = [
+          { label: 'Number of entries', value: this.numParticipations },
+          { label: 'Total number medals', value: this.totalMedals },
+          { label: 'Total number of athletes', value: this.totalAthletes },
+        ];
       }
-    });
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.countryDataSubscription) {
+      this.countryDataSubscription.unsubscribe();
+    }
   }
 }

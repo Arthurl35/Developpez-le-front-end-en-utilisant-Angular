@@ -1,23 +1,10 @@
 
 <div class="container">
-  <div class="container-head">
-    <h2>{{countryName}}</h2>
-    <div class="card">
-      <div class="card-jos">
-        <p>Number of entries <span>{{ numParticipations }}</span></p>
-      </div>
-      <div class="card-countries">
-        <p>Total number medals <span>{{ totalMedals }}</span></p>
-      </div>
-      <div class="card-countries">
-        <p>Total number of athletes <span>{{ totalAthletes }}</span></p>
-      </div>
-    </div>
-  </div>
+  <app-header [title]="countryName" [customContent]="detailCustomContent"></app-header>
   <div class="container-main">
     <div class="chart">
         <ngx-charts-line-chart
-        [results]="chartData"
+        [results]="lineChartData"
         [gradient]="false"
         [animations]="false"
         [xAxis]="true"

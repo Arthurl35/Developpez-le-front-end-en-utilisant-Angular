@@ -9,9 +9,10 @@ import { ChartComponent } from './chart/chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DetailComponent } from './pages/detail/detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, ChartComponent, DetailComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, ChartComponent, DetailComponent, HeaderComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,NgxChartsModule,BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],

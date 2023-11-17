@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription  } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
+import { PieChartData } from '../core/models/ChartData';
 
 @Component({
   selector: 'app-chart',
@@ -10,8 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  public olympics$: Observable<Olympic[] | null>;
-  public chartData!: any[];
+  public olympics$: Observable<Olympic[]>;
+  public pieChartData!: PieChartData[];
+
+  private olympicsSubscription!: Subscription;
+
 
   constructor(private olympicService: OlympicService, private router: Router) {
     this.olympics$ = this.olympicService.getOlympics();
@@ -22,22 +26,31 @@ export class ChartComponent implements OnInit {
  * emitted olympics data.
  */
   ngOnInit(): void {
-    this.olympics$.subscribe((olympics) => {
+    this.olympicsSubscription = this.olympics$.subscribe((olympics) => {
       if (olympics) {
-        this.chartData = this.extractChartData(olympics);
+        this.pieChartData = this.extractChartData(olympics);
       }
     });
   }
 
 /**
- * The function extractChartData takes an array of Olympic objects and returns an array of objects
- * containing the country id, name, and the total number of medals they have won.
+ * The ngOnDestroy function checks if there is an active subscription and unsubscribes from it if it
+ * exists.
+ */
+  ngOnDestroy(): void {
+    if (this.olympicsSubscription) {
+      this.olympicsSubscription.unsubscribe();
+    }
+  }
+
+/**
+ * The function extractChartData takes an array of Olympic objects and returns an array of
+ * PieChartData objects.
  * @param {Olympic[]} olympics - An array of Olympic objects. Each Olympic object has the following
  * properties:
- * @returns an array of objects. Each object in the array
- * represents an Olympic country 
+ * @returns The function `extractChartData` returns an array of `PieChartData` objects.
  */
-  extractChartData(olympics: Olympic[]): any[] {
+  extractChartData(olympics: Olympic[]): PieChartData[] {
     const data = olympics.map((o) => {
     const totalMedalsCount = o.participations.reduce((accumulator, participation) => accumulator + participation.medalsCount, 0);
       
@@ -51,12 +64,12 @@ export class ChartComponent implements OnInit {
   }
 
 /**
- * The function onPieChartSelect takes an event object and navigates to a detail page.
- * @param {any} event - The event parameter is an object that contains information about the selected
- * data point on the pie chart. 
+ * The function onPieChartSelect navigates to a detail page based on the selected data from a pie
+ * chart.
+ * @param event - An object containing the following properties:
  */
-  onPieChartSelect(event: any): void {
-    const selectedData = this.chartData.find((data) => data.name === event.name && data.value === event.value);
+  onPieChartSelect(event: { id: number, name: string, value: number }): void {
+    const selectedData = this.pieChartData.find((data) => data.name === event.name && data.value === event.value);
 
     if (selectedData) {
       const selectedId = selectedData.id;

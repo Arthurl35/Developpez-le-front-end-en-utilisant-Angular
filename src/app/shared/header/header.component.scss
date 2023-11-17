@@ -1,0 +1,38 @@
+.container-head {
+    flex: 30%;
+    padding-top: 50px;
+    margin: 0 auto;
+    text-align: center;
+    h2 {
+      text-align: center;
+      padding: 11px;
+      background: #04838F;
+      color: #fff;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 15px;
+    }
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    p {
+      color: #333333ab;
+    }
+    span {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      font-size: xx-large;
+      color: #333;
+    }
+    .card-item{
+      border: 2px solid #04838F;
+      border-radius: 5px;
+      padding: 11px;
+    }
+  }
+  
+  

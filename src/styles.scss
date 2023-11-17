@@ -11,53 +11,15 @@
   flex-direction: column;
   padding: 20px;
   font-size: x-large;
-  .container-head {
-    flex: 30%;
-    padding-top: 50px;
-    margin: 0 auto;
-    text-align: center;
-    h2 {
-      text-align: center;
-      padding: 11px;
-      background: #04838F;
-      color: #fff;
-      border-radius: 5px;
-      display: inline-block;
-      margin: 15px;
-    }
-  }
-  .card {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    flex-wrap: wrap;
-    p {
-      color: #333333ab;
-    }
-    span {
-      display: block;
-      text-align: center;
-      font-weight: bold;
-      font-size: xx-large;
-      color: #333;
-    }
-    .card-jos,
-    .card-countries {
-      border: 2px solid #04838F;
-      border-radius: 5px;
-      padding: 11px;
-    }
-  }
-  .container-main {
+    .container-main {
     flex: 70%;
     margin: 0 auto 0;
-    .chart{
-      width: 800px;
-      height: 500px;
-    }
+      .chart{
+        width: 800px;
+        height: 500px;
+      }
   }
 }
-
 @media screen and (max-width: 1024px) {
   .container{
     font-size: large;
@@ -77,6 +39,4 @@
     height: 150px;
   }
 }
-
-
 
