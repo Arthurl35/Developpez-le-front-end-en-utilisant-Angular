@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { ActivatedRoute } from '@angular/router';
-import { CountryData } from 'src/app/core/models/CountryData';
+import { ChartData, CountryData, LineChartData } from 'src/app/core/models/ChartData';
 import { Observable } from 'rxjs';
+import { CustomContentItem } from 'src/app/core/models/CustomContentItem';
 
 @Component({
   selector: 'app-detail',
@@ -15,9 +16,9 @@ export class DetailComponent implements OnInit {
   public numParticipations!: number;
   public totalMedals!: number;
   public totalAthletes!: number;
-
-  public chartData!: any[];
+  public lineChartData!: LineChartData[];
   public countryData$!: Observable<CountryData>;
+  public detailCustomContent: CustomContentItem[] = []; // Définissez la variable detailCustomContent ici
 
   constructor(
     private olympicService: OlympicService,
@@ -38,7 +39,7 @@ export class DetailComponent implements OnInit {
         this.totalMedals = info.totalMedals;
         this.totalAthletes = info.totalAthletes;
 
-        this.chartData = [
+        this.lineChartData = [
           {
             name: info.name,
             series: info.chartData.map((participation) => ({
@@ -46,6 +47,13 @@ export class DetailComponent implements OnInit {
               value: participation.medalsCount,
             })),
           },
+        ];
+
+        // Construire detailCustomContent après avoir reçu les données
+        this.detailCustomContent = [
+          { label: 'Number of entries', value: this.numParticipations },
+          { label: 'Total number medals', value: this.totalMedals },
+          { label: 'Total number of athletes', value: this.totalAthletes },
         ];
       }
     });

@@ -6,9 +6,17 @@ export class CountryData {
   totalAthletes!: number;
   chartData!: ChartData[];
 }
-
 export interface ChartData {
   year: number;
   medalsCount: number;
   athleteCount: number;
+}
+export interface PieChartData {
+  id: number;
+  name: string;
+  value: number;
+}
+export interface LineChartData {
+  name: string;
+  series: Array<object>;
 }

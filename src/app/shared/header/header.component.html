@@ -1,1 +1,11 @@
-<p>header works!</p>
+<div class="container-head">
+    <h2>{{ title }}</h2>
+    <div class="card">
+      <ng-container *ngFor="let content of customContent">
+        <div class="card-item">
+          <p>{{ content.label }} <span>{{ content.value }}</span></p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  

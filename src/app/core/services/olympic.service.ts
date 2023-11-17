@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
-import { CountryData } from './../models/CountryData';
+import { CountryData } from '../models/ChartData';
 import { Observable } from 'rxjs';
 
 @Injectable({

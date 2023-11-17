@@ -3,6 +3,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Observable } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
+import { PieChartData } from '../core/models/ChartData';
 
 @Component({
   selector: 'app-chart',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ChartComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null>;
-  public chartData!: any[];
+  public pieChartData!: PieChartData[];
 
   constructor(private olympicService: OlympicService, private router: Router) {
     this.olympics$ = this.olympicService.getOlympics();
@@ -24,7 +25,7 @@ export class ChartComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$.subscribe((olympics) => {
       if (olympics) {
-        this.chartData = this.extractChartData(olympics);
+        this.pieChartData = this.extractChartData(olympics);
       }
     });
   }
@@ -56,7 +57,7 @@ export class ChartComponent implements OnInit {
  * data point on the pie chart. 
  */
   onPieChartSelect(event: any): void {
-    const selectedData = this.chartData.find((data) => data.name === event.name && data.value === event.value);
+    const selectedData = this.pieChartData.find((data) => data.name === event.name && data.value === event.value);
 
     if (selectedData) {
       const selectedId = selectedData.id;
