@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChartData, CountryData, LineChartData } from 'src/app/core/models/ChartData';
-import { Observable } from 'rxjs';
+import {CountryData, LineChartData } from 'src/app/core/models/ChartData';
+import { Observable, Subscription } from 'rxjs';
 import { CustomContentItem } from 'src/app/core/models/CustomContentItem';
 
 @Component({
@@ -18,7 +18,9 @@ export class DetailComponent implements OnInit {
   public totalAthletes!: number;
   public lineChartData!: LineChartData[];
   public countryData$!: Observable<CountryData>;
-  public detailCustomContent: CustomContentItem[] = []; // Définissez la variable detailCustomContent ici
+  public detailCustomContent: CustomContentItem[] = [];
+
+  private countryDataSubscription!: Subscription;
 
   constructor(
     private olympicService: OlympicService,
@@ -32,7 +34,7 @@ export class DetailComponent implements OnInit {
 
     this.countryData$ = this.olympicService.getCountryData(this.countryId);
 
-    this.countryData$.subscribe((info) => {
+    this.countryDataSubscription = this.countryData$.subscribe((info) => {
       if (info) {
         this.countryName = info.name;
         this.numParticipations = info.numParticipations;
@@ -57,5 +59,11 @@ export class DetailComponent implements OnInit {
         ];
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.countryDataSubscription) {
+      this.countryDataSubscription.unsubscribe();
+    }
   }
 }

@@ -30,15 +30,15 @@ export class ChartComponent implements OnInit {
     });
   }
 
+
 /**
- * The function extractChartData takes an array of Olympic objects and returns an array of objects
- * containing the country id, name, and the total number of medals they have won.
+ * The function extractChartData takes an array of Olympic objects and returns an array of
+ * PieChartData objects.
  * @param {Olympic[]} olympics - An array of Olympic objects. Each Olympic object has the following
  * properties:
- * @returns an array of objects. Each object in the array
- * represents an Olympic country 
+ * @returns The function `extractChartData` returns an array of `PieChartData` objects.
  */
-  extractChartData(olympics: Olympic[]): any[] {
+  extractChartData(olympics: Olympic[]): PieChartData[] {
     const data = olympics.map((o) => {
     const totalMedalsCount = o.participations.reduce((accumulator, participation) => accumulator + participation.medalsCount, 0);
       
@@ -52,11 +52,11 @@ export class ChartComponent implements OnInit {
   }
 
 /**
- * The function onPieChartSelect takes an event object and navigates to a detail page.
- * @param {any} event - The event parameter is an object that contains information about the selected
- * data point on the pie chart. 
+ * The function `onPieChartSelect` navigates to a detail page based on the selected data from a pie
+ * chart.
+ * @param event - An object containing the following properties:
  */
-  onPieChartSelect(event: any): void {
+  onPieChartSelect(event: { id: number, name: string, value: number }): void {
     const selectedData = this.pieChartData.find((data) => data.name === event.name && data.value === event.value);
 
     if (selectedData) {
